@@ -11,6 +11,9 @@ import practica2vaqueras.Recorrido;
 public class Entregas extends javax.swing.JFrame {
  private ArrayList<Productos> productos = new ArrayList<>();
  private ArrayList<Moto> vehiculos = new ArrayList<>(); 
+ public static int Distancia1=0;
+ public static int Distancia2=0;
+ public static int Distancia3=0;
  
     public Entregas(ArrayList<Productos> productos, ArrayList<Moto> vehiculos) {
         initComponents();
@@ -33,7 +36,7 @@ public class Entregas extends javax.swing.JFrame {
         bmoto1 = new javax.swing.JButton();
         bmoto2 = new javax.swing.JButton();
         bmoto3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        EnviarTodos = new javax.swing.JButton();
         Meta = new javax.swing.JLabel();
         Menu = new javax.swing.JButton();
 
@@ -69,10 +72,10 @@ public class Entregas extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Enviar Todos");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        EnviarTodos.setText("Enviar Todos");
+        EnviarTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                EnviarTodosActionPerformed(evt);
             }
         });
 
@@ -106,7 +109,7 @@ public class Entregas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Menu)
                         .addGap(217, 217, 217)
-                        .addComponent(jButton4)))
+                        .addComponent(EnviarTodos)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
                 .addComponent(Meta, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -135,7 +138,7 @@ public class Entregas extends javax.swing.JFrame {
                         .addGap(15, 15, 15)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
+                    .addComponent(EnviarTodos)
                     .addComponent(Menu))
                 .addContainerGap())
             .addComponent(Meta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -151,32 +154,32 @@ public class Entregas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_MenuActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void EnviarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnviarTodosActionPerformed
         // TODO add your handling code here:
-        Recorrido recorrido = new Recorrido(moto1, 2);
-        Recorrido recorrido2 = new Recorrido(moto2, 5);
-        Recorrido recorrido3 = new Recorrido(moto3 , 8);
-        
+        Recorrido recorrido = new Recorrido(moto1, Distancia1);
+        Recorrido recorrido2 = new Recorrido(moto2, Distancia2);
+        Recorrido recorrido3 = new Recorrido(moto3 , Distancia3);        
         recorrido.start();
         recorrido2.start();
         recorrido3.start();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_EnviarTodosActionPerformed
 
     private void bmoto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bmoto1ActionPerformed
         // TODO add your handling code here:
-        Recorrido recorrido = new Recorrido(moto1, 2);
+        Recorrido recorrido = new Recorrido(moto1,Distancia1);
         recorrido.start();
+        
     }//GEN-LAST:event_bmoto1ActionPerformed
 
     private void bmoto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bmoto2ActionPerformed
         // TODO add your handling code here:
-        Recorrido recorrido2 = new Recorrido(moto2, 5);
+        Recorrido recorrido2 = new Recorrido(moto2, Distancia2);
         recorrido2.start();
     }//GEN-LAST:event_bmoto2ActionPerformed
 
     private void bmoto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bmoto3ActionPerformed
         // TODO add your handling code here:
-         Recorrido recorrido3 = new Recorrido(moto3 , 8);
+         Recorrido recorrido3 = new Recorrido(moto3 , Distancia3);
          recorrido3.start();
     }//GEN-LAST:event_bmoto3ActionPerformed
 
@@ -186,12 +189,12 @@ public class Entregas extends javax.swing.JFrame {
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton EnviarTodos;
     private javax.swing.JButton Menu;
     public static javax.swing.JLabel Meta;
     private javax.swing.JButton bmoto1;
     private javax.swing.JButton bmoto2;
     private javax.swing.JButton bmoto3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel moto1;
     private javax.swing.JLabel moto2;
     private javax.swing.JLabel moto3;

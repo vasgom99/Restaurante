@@ -4,7 +4,6 @@ package practica2vaqueras;
 import Front.MenuPrinicipal;
 import java.util.ArrayList;
 
-
 public class Practica2Vaqueras {
 
    

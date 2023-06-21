@@ -1,6 +1,11 @@
 
 package practica2vaqueras;
 
-public class Serializar {
+import java.io.Serializable;
+
+public class Serializar implements Serializable{
+    private String Precio;
+    private String Producto;
+    
     
 }
