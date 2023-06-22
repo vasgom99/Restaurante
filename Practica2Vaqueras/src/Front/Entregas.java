@@ -39,6 +39,7 @@ public class Entregas extends javax.swing.JFrame {
         EnviarTodos = new javax.swing.JButton();
         Meta = new javax.swing.JLabel();
         Menu = new javax.swing.JButton();
+        Regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,6 +90,13 @@ public class Entregas extends javax.swing.JFrame {
             }
         });
 
+        Regresar.setText("Seguir pidiendo");
+        Regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegresarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,9 +116,11 @@ public class Entregas extends javax.swing.JFrame {
                             .addComponent(moto2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Menu)
-                        .addGap(217, 217, 217)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Regresar)
+                        .addGap(130, 130, 130)
                         .addComponent(EnviarTodos)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
                 .addComponent(Meta, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -139,7 +149,8 @@ public class Entregas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(EnviarTodos)
-                    .addComponent(Menu))
+                    .addComponent(Menu)
+                    .addComponent(Regresar))
                 .addContainerGap())
             .addComponent(Meta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -183,6 +194,13 @@ public class Entregas extends javax.swing.JFrame {
          recorrido3.start();
     }//GEN-LAST:event_bmoto3ActionPerformed
 
+    private void RegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegresarActionPerformed
+        // TODO add your handling code here:
+        Pedidos pedidos = new Pedidos(productos, vehiculos);
+        pedidos.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_RegresarActionPerformed
+
   public JLabel getMeta(){
   return Meta;
   }
@@ -192,6 +210,7 @@ public class Entregas extends javax.swing.JFrame {
     private javax.swing.JButton EnviarTodos;
     private javax.swing.JButton Menu;
     public static javax.swing.JLabel Meta;
+    private javax.swing.JButton Regresar;
     private javax.swing.JButton bmoto1;
     private javax.swing.JButton bmoto2;
     private javax.swing.JButton bmoto3;
