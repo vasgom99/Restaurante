@@ -1,4 +1,3 @@
-
 package Front;
 
 import javax.swing.table.DefaultTableModel;
@@ -25,56 +24,62 @@ import javax.swing.JTable;
 import Front.Entregas;
 
 public class Pedidos extends javax.swing.JFrame {
- Fondo fondo = new Fondo();
- //DefaultTableModel dtm = new DefaultTableModel();
- 
- private ArrayList<Productos> productos = new ArrayList<>();
- private ArrayList<Moto> vehiculos = new ArrayList<>(); 
- private ArrayList<Productos> pedidos = new ArrayList<>();
- private String archivoDatos = "datos.txt";
- public static int distancia;
 
- 
+    Fondo fondo = new Fondo();
+    //DefaultTableModel dtm = new DefaultTableModel();
+
+    private ArrayList<Productos> productos = new ArrayList<>();
+    private ArrayList<Moto> vehiculos = new ArrayList<>();
+    private ArrayList<Productos> pedidos = new ArrayList<>();
+    private final String archivoDatos = "datos.txt";
+    public static int distancia;
+
     public Pedidos(ArrayList<Productos> productos, ArrayList<Moto> vehiculos) {
-         this.setContentPane(fondo);
+        this.setContentPane(fondo);
         initComponents();
         setLocationRelativeTo(null);
-        /**String[]titulo=new String[]{"Producto", "Precio"};
-         dtm.setColumnIdentifiers(titulo);
-         ProductosMuestra.setModel(dtm);*/
-         this.productos = productos;
-         this.vehiculos = vehiculos;
-         cargarDatos();
-         refrescarTabla();
-         cargarProductos();
-         
+        /**
+         * String[]titulo=new String[]{"Producto", "Precio"};
+         * dtm.setColumnIdentifiers(titulo);
+         ProductosMuestra.setModel(dtm);
+         */
+        this.productos = productos;
+        this.vehiculos = vehiculos;
+      
+        refrescarTabla();
+        cargarProductos();
+
     }
- public boolean verificacion() {
+
+    public boolean verificacion() {
         boolean verificacion = false;
         if (Producto.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Usted no ingreso el nombre del producto");
             Producto.requestFocus();
-            
+
         } else if (Precio.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Usted no ingreso el precio del producto");
             Precio.requestFocus();
-            
+
         } else {
             verificacion = true;
         }
         return verificacion;
     }
-  public void agregar(){
-  if (verificacion()) {
+
+    public void agregar() {
+        if (verificacion()) {
             productos.add(new Productos(Producto.getText(), Precio.getText(), true));
         }
         Producto.setText("");
         Precio.setText("");
+    }
+
+    /**
+     * void eliminar(){ int fila = ProductosMuestra.getSelectedRow();
+     * dtm.removeRow(fila);
   }
-  /**void eliminar(){
-      int fila = ProductosMuestra.getSelectedRow();
-  dtm.removeRow(fila);
-  }*/
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -101,8 +106,6 @@ public class Pedidos extends javax.swing.JFrame {
         Total = new javax.swing.JLabel();
         Largo = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        accion = new javax.swing.JButton();
-        desaccion = new javax.swing.JButton();
         VerMotos = new javax.swing.JButton();
         MotosV = new javax.swing.JComboBox<>();
 
@@ -210,20 +213,6 @@ public class Pedidos extends javax.swing.JFrame {
 
         jLabel6.setText("Vehiculo");
 
-        accion.setText("Serializar");
-        accion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                accionActionPerformed(evt);
-            }
-        });
-
-        desaccion.setText("Deserializar");
-        desaccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                desaccionActionPerformed(evt);
-            }
-        });
-
         VerMotos.setText("Ver Vehiculos");
         VerMotos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,45 +246,45 @@ public class Pedidos extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(ContenidoLayout.createSequentialGroup()
-                                .addGroup(ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(MandarPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(accion, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
+                                .addComponent(MandarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(Eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(desaccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                                .addComponent(Eliminar)))))
                 .addGroup(ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenidoLayout.createSequentialGroup()
-                        .addGroup(ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(ContenidoLayout.createSequentialGroup()
-                                    .addComponent(ConfirmarCompra)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(EliminarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel2))
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenidoLayout.createSequentialGroup()
-                        .addComponent(Total)
-                        .addGap(153, 153, 153))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenidoLayout.createSequentialGroup()
-                        .addGroup(ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(MotosV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Largo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(108, 108, 108))
                     .addGroup(ContenidoLayout.createSequentialGroup()
-                        .addGap(77, 77, 77)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
                         .addComponent(VerMotos)
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(ContenidoLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addGroup(ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenidoLayout.createSequentialGroup()
+                                .addGroup(ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(ContenidoLayout.createSequentialGroup()
+                                            .addComponent(ConfirmarCompra)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(EliminarProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel2))
+                                .addGap(20, 20, 20))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenidoLayout.createSequentialGroup()
+                                .addGroup(ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(MotosV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Largo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(108, 108, 108))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenidoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Regresar)
-                .addGap(40, 40, 40))
+                .addGroup(ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenidoLayout.createSequentialGroup()
+                        .addComponent(Regresar)
+                        .addGap(40, 40, 40))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ContenidoLayout.createSequentialGroup()
+                        .addComponent(Total)
+                        .addGap(70, 70, 70))))
         );
         ContenidoLayout.setVerticalGroup(
             ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,19 +330,11 @@ public class Pedidos extends javax.swing.JFrame {
                         .addGroup(ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(MandarPedido)
                             .addComponent(Eliminar))))
-                .addGroup(ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(ContenidoLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(ContenidoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(accion)
-                            .addComponent(desaccion))
-                        .addGap(33, 109, Short.MAX_VALUE))
-                    .addGroup(ContenidoLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(Total)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Regresar)
-                        .addGap(25, 25, 25))))
+                .addGap(39, 39, 39)
+                .addComponent(Total)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(Regresar)
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -379,7 +360,7 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void MandarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MandarPedidoActionPerformed
         // TODO add your handling code here:
-        
+
         seleccionTabla();
     }//GEN-LAST:event_MandarPedidoActionPerformed
 
@@ -389,46 +370,38 @@ public class Pedidos extends javax.swing.JFrame {
         //Producto.setText("");
         //Precio.setText("");
         refrescarTabla();
+        serializarDatos();
     }//GEN-LAST:event_AgregarActionPerformed
 
     private void ProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ProductoActionPerformed
 
-    
+
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         // TODO add your handling code here:
         //eliminar();
-       int selectedRow = ProductosMuestra.getSelectedRow();
-    if (selectedRow != -1) {    
-        DefaultTableModel modeloPedidos = (DefaultTableModel) ProductosMuestra.getModel();   
-        modeloPedidos.removeRow(selectedRow);
-        String motocicleta = (String) MotosV.getSelectedItem();     
-        
-     if (pedidos != null) {
-            // Eliminar el pedido correspondiente a la fila seleccionada
-            pedidos.remove(selectedRow);
+        int selectedRow = ProductosMuestra.getSelectedRow();
+        if (selectedRow != -1) {
+            DefaultTableModel modeloPedidos = (DefaultTableModel) ProductosMuestra.getModel();
+            modeloPedidos.removeRow(selectedRow);
+            String motocicleta = (String) MotosV.getSelectedItem();
+
+            if (pedidos != null) {
+                // Eliminar el pedido correspondiente a la fila seleccionada
+                pedidos.remove(selectedRow);
+                serializarDatos();
+            }
         }
-    }
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void LargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LargoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_LargoActionPerformed
 
-    private void accionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accionActionPerformed
-        // TODO add your handling code here:
-        serializarDatos();
-    }//GEN-LAST:event_accionActionPerformed
-
     private void PrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrecioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PrecioActionPerformed
-
-    private void desaccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_desaccionActionPerformed
-        // TODO add your handling code here:
-        deserializarDatos();
-    }//GEN-LAST:event_desaccionActionPerformed
 
     private void VerMotosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerMotosActionPerformed
         // TODO add your handling code here:
@@ -439,70 +412,72 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void ConfirmarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmarCompraActionPerformed
         // TODO add your handling code here:
-        if (MotosV.getSelectedItem().toString() == "Moto1") { 
-            Entregas.Distancia1= Integer.parseInt(Largo.getText());
+        if (MotosV.getSelectedItem().toString() == "Moto1") {
+            Entregas.Distancia1 = Integer.parseInt(Largo.getText());
         }
-        if (MotosV.getSelectedItem().toString() == "Moto2") { 
-            Entregas.Distancia2= Integer.parseInt(Largo.getText());
+        if (MotosV.getSelectedItem().toString() == "Moto2") {
+            Entregas.Distancia2 = Integer.parseInt(Largo.getText());
         }
-        if (MotosV.getSelectedItem().toString() == "Moto3") { 
-            Entregas.Distancia3= Integer.parseInt(Largo.getText());
+        if (MotosV.getSelectedItem().toString() == "Moto3") {
+            Entregas.Distancia3 = Integer.parseInt(Largo.getText());
         }
-        
+        serializarDatos();
+
     }//GEN-LAST:event_ConfirmarCompraActionPerformed
-public void refrescarTablaPedidos(){
+    public void refrescarTablaPedidos() {
         DefaultTableModel productosInfo = new DefaultTableModel();
         productosInfo.addColumn("Nombre");
         productosInfo.addColumn("Precio");
-        
+
         for (int i = 0; i < productos.size(); i++) {
             Object[] fila = new Object[2];
             fila[0] = productos.get(i).getNombre();
             fila[1] = "Q" + productos.get(i).getPrecio();
             productosInfo.addRow(fila);
         }
-        ProductosPedido.setModel(productosInfo);      
+        ProductosPedido.setModel(productosInfo);
     }
     private void EliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarProductoActionPerformed
         // TODO add your handling code here:
-         int selectedRow = ProductosPedido.getSelectedRow();
-    if (selectedRow != -1) {    
-        DefaultTableModel modeloPedidos = (DefaultTableModel) ProductosPedido.getModel();   
-        modeloPedidos.removeRow(selectedRow);
-        String motocicleta = (String) MotosV.getSelectedItem();     
-        
-     if (pedidos != null) {
-            // Eliminar el pedido correspondiente a la fila seleccionada
-            pedidos.remove(selectedRow);
+        int selectedRow = ProductosPedido.getSelectedRow();
+        if (selectedRow != -1) {
+            DefaultTableModel modeloPedidos = (DefaultTableModel) ProductosPedido.getModel();
+            modeloPedidos.removeRow(selectedRow);
+            String motocicleta = (String) MotosV.getSelectedItem();
+
+            if (pedidos != null) {
+                // Eliminar el pedido correspondiente a la fila seleccionada
+                pedidos.remove(selectedRow);
+            }
+            sumaPedido();
         }
-        sumaPedido();
-    }
     }//GEN-LAST:event_EliminarProductoActionPerformed
-    
-    public void refrescarTabla(){
+
+    public void refrescarTabla() {
         DefaultTableModel productosInfo = new DefaultTableModel();
         productosInfo.addColumn("Nombre");
         productosInfo.addColumn("Precio");
-        
+
         for (int i = 0; i < productos.size(); i++) {
             Object[] fila = new Object[2];
             fila[0] = productos.get(i).getNombre();
             fila[1] = "Q" + productos.get(i).getPrecio();
             productosInfo.addRow(fila);
         }
-        ProductosMuestra.setModel(productosInfo);      
+        ProductosMuestra.setModel(productosInfo);
     }
-  public void seleccionTabla(){
-  int seleccion = ProductosMuestra.getSelectedRow();
-  
-  Productos seleccionado =  productos.get(seleccion);
-  if (productos.contains(seleccionado)) {
+
+    public void seleccionTabla() {
+        int seleccion = ProductosMuestra.getSelectedRow();
+
+        Productos seleccionado = productos.get(seleccion);
+        if (productos.contains(seleccionado)) {
             pedidos.add(new Productos(seleccionado.getNombre(), seleccionado.getPrecio(), true));
         }
         cargarProductoPedido();
-  }
-   
-public void cargarProductoPedido() {
+    }
+
+    public void cargarProductoPedido() {
         DefaultTableModel tablaPedido = new DefaultTableModel();
         tablaPedido.addColumn("Nombre");
         tablaPedido.addColumn("Precio");
@@ -515,7 +490,8 @@ public void cargarProductoPedido() {
         ProductosPedido.setModel(tablaPedido);
         sumaPedido();
     }
- public void sumaPedido() {
+
+    public void sumaPedido() {
         double suma = 0.00;
         for (int i = 0; i < ProductosPedido.getRowCount(); i++) {
             double precio = Double.parseDouble(ProductosPedido.getValueAt(i, 1).toString());
@@ -523,7 +499,8 @@ public void cargarProductoPedido() {
         }
         Total.setText("Total: " + suma);
     }
-public void cargarProductos() {
+
+    public void cargarProductos() {
         DefaultTableModel tabla = new DefaultTableModel();
         tabla.addColumn("Producto");
         tabla.addColumn("Precio");
@@ -534,53 +511,56 @@ public void cargarProductos() {
             tabla.addRow(fila);
         }
         ProductosMuestra.setModel(tabla);
-        
 
-       /** for (int i = 0; i < vehiculos.size(); i++) {
-            if (vehiculos.get(i).isDisponible()) {
-                motosLibres.addItem(vehiculos.get(i).getNombre());
-            }
-        }*/
+        /**
+         * for (int i = 0; i < vehiculos.size(); i++) { if
+         * (vehiculos.get(i).isDisponible()) {
+         * motosLibres.addItem(vehiculos.get(i).getNombre()); }
+        }
+         */
     }
+
     private void serializarDatos() {
         try {
             FileOutputStream fileOut = new FileOutputStream(archivoDatos);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(productos);  
+            out.writeObject(productos);
             out.close();
             fileOut.close();
-            JOptionPane.showMessageDialog(this, "serializacion correcta");
+            
         } catch (Exception e) {
             e.printStackTrace();
-        }}
-    
+        }
+    }
+
     private void cargarDatos() {
         try {
             FileInputStream fileIn = new FileInputStream(archivoDatos);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            productos = (ArrayList<Productos>) in.readObject(); 
+            productos = (ArrayList<Productos>) in.readObject();
             in.close();
             fileIn.close();
-            System.out.println("Datos cargados correctamente.");
+            
         } catch (Exception e) {
-            productos = new ArrayList<>(); 
+            productos = new ArrayList<>();
             e.printStackTrace();
         }
     }
-   
-private void deserializarDatos() {
+
+    private void deserializarDatos() {
         try {
             FileInputStream desguardado = new FileInputStream(archivoDatos);
             ObjectInputStream in = new ObjectInputStream(desguardado);
-            productos = (ArrayList<Productos>) in.readObject();  
+            productos = (ArrayList<Productos>) in.readObject();
             in.close();
             desguardado.close();
-        
-            JOptionPane.showMessageDialog(this, "deserializacion correcta");
-          
+
+         
+
         } catch (Exception e) {
             e.printStackTrace();
-        }}
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -599,8 +579,6 @@ private void deserializarDatos() {
     private javax.swing.JButton Regresar;
     private javax.swing.JLabel Total;
     private javax.swing.JButton VerMotos;
-    private javax.swing.JButton accion;
-    private javax.swing.JButton desaccion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -612,12 +590,13 @@ private void deserializarDatos() {
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 
-    class Fondo extends JPanel{
-    private Image imagen;
-    
-        public void paint(Graphics g){
-        imagen = new ImageIcon(getClass().getResource("/Imagenes/fondo.png")).getImage();
-        g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+    class Fondo extends JPanel {
+
+        private Image imagen;
+
+        public void paint(Graphics g) {
+            imagen = new ImageIcon(getClass().getResource("/Imagenes/fondo.png")).getImage();
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
             setOpaque(false);
             super.paint(g);
         }

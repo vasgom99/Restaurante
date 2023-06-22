@@ -6,6 +6,10 @@ import javax.swing.table.DefaultTableModel;
 import practica2vaqueras.Moto;
 import practica2vaqueras.Productos;
 import practica2vaqueras.HistorialM;
+import Front.Pedidos;
+import Front.Entregas;
+import practica2vaqueras.Recorrido;
+
 
 public class Historial extends javax.swing.JFrame {
 private ArrayList<Productos> productos = new ArrayList<>();
@@ -13,10 +17,34 @@ private ArrayList<Productos> productos = new ArrayList<>();
  private ArrayList<Productos> pedidos = new ArrayList<>();
  
  
-    public Historial(ArrayList<Productos> productos, ArrayList<Moto> vehiculos) {
+    public Historial(ArrayList<Productos> productos, ArrayList<Moto> vehiculos, ArrayList<Productos> pedidos ) {
+        setLocationRelativeTo(null);
         initComponents();
+        this.productos=productos;
+        this.vehiculos=vehiculos;
+        this.pedidos= pedidos;
+        //cargarHistorial();
     }
-
+    /**
+public void cargarHistorial() {
+        DefaultTableModel tablaHistorial = new DefaultTableModel();
+        tablaHistorial.addColumn("Vehiculo");
+        tablaHistorial.addColumn("Distancia");
+        tablaHistorial.addColumn("Monto");
+        tablaHistorial.addColumn("Fecha de Creacion");
+        tablaHistorial.addColumn("Fecha de Entrega");
+        
+        for (int i = 0; i < pedidos.size(); i++) {
+            Object[] fila = new Object[5];
+            fila[0] = pedidos.get(i).getVehiculo();
+            fila[1] = pedidos.get(i).getDistancia();
+            fila[2] = pedidos.get(i).getTotal();
+            fila[3] = pedidos.get(i).getFechaPedido();
+            fila[4] = pedidos.get(i).getFechaEntrega();
+            tablaHistorial.addRow(fila);
+        }
+        TablaHistorial.setModel(tablaHistorial);
+    }*/
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
