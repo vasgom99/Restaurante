@@ -4,18 +4,18 @@
  */
 package practica2vaqueras;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author casal
  */
-public class HistorialM {
+public class HistorialM implements Serializable {
     private int numeroPedido;
     private String vehiculo;
     private String distancia;
     private String total;
-    private ArrayList<Productos> productosPedido;
     private String fechaPedido;
     private String fechaEntrega;
 
@@ -24,7 +24,6 @@ public class HistorialM {
         this.vehiculo = vehiculo;
         this.distancia = distancia;
         this.total = total;
-        this.productosPedido = productosPedido;
         this.fechaPedido = fechaPedido;
         this.fechaEntrega = fechaEntrega;
     }
@@ -61,14 +60,6 @@ public class HistorialM {
         this.total = total;
     }
 
-    public ArrayList<Productos> getProductosPedido() {
-        return productosPedido;
-    }
-
-    public void setProductosPedido(ArrayList<Productos> productosPedido) {
-        this.productosPedido = productosPedido;
-    }
-
     public String getFechaPedido() {
         return fechaPedido;
     }
@@ -83,11 +74,6 @@ public class HistorialM {
 
     public void setFechaEntrega(String fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
-    }
-
-    @Override
-    public String toString() {
-        return "Pedido{" + "numeroPedido=" + numeroPedido + ", vehiculo=" + vehiculo + ", distancia=" + distancia + ", total=" + total + ", productosPedido=" + productosPedido + ", fechaPedido=" + fechaPedido + ", fechaEntrega=" + fechaEntrega + '}';
     }
 
    

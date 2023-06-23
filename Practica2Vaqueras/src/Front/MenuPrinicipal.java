@@ -58,6 +58,11 @@ public class MenuPrinicipal extends javax.swing.JFrame {
         });
 
         Historial.setText("Historial de entregas");
+        Historial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HistorialActionPerformed(evt);
+            }
+        });
 
         Salir.setText("Salir");
         Salir.addActionListener(new java.awt.event.ActionListener() {
@@ -135,10 +140,17 @@ public class MenuPrinicipal extends javax.swing.JFrame {
 
     private void EntregasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntregasActionPerformed
         // TODO add your handling code here:
-        Entregas entregas = new Entregas(productos, vehiculos);
+        Entregas entregas = new Entregas(productos, vehiculos, 1);
         entregas.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_EntregasActionPerformed
+
+    private void HistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistorialActionPerformed
+        // TODO add your handling code here:
+        Historial historialVentana = new Historial(productos, vehiculos);
+        historialVentana.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_HistorialActionPerformed
 
     /**
      * @param args the command line arguments

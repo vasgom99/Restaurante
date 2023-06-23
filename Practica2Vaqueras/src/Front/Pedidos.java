@@ -6,22 +6,16 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import practica2vaqueras.Moto;
 import practica2vaqueras.Productos;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import javax.swing.JTable;
-import Front.Entregas;
+import practica2vaqueras.HistorialM;
 
 public class Pedidos extends javax.swing.JFrame {
 
@@ -31,7 +25,10 @@ public class Pedidos extends javax.swing.JFrame {
     private ArrayList<Productos> productos = new ArrayList<>();
     private ArrayList<Moto> vehiculos = new ArrayList<>();
     private ArrayList<Productos> pedidos = new ArrayList<>();
+    private ArrayList<HistorialM> historial = new ArrayList<>();
+    private double totalPedido;
     private final String archivoDatos = "datos.txt";
+    private final String archivoHistorial = "historial.txt";
     public static int distancia;
 
     public Pedidos(ArrayList<Productos> productos, ArrayList<Moto> vehiculos) {
@@ -40,12 +37,11 @@ public class Pedidos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         /**
          * String[]titulo=new String[]{"Producto", "Precio"};
-         * dtm.setColumnIdentifiers(titulo);
-         ProductosMuestra.setModel(dtm);
+         * dtm.setColumnIdentifiers(titulo); ProductosMuestra.setModel(dtm);
          */
         this.productos = productos;
         this.vehiculos = vehiculos;
-      
+
         refrescarTabla();
         cargarProductos();
 
@@ -77,8 +73,7 @@ public class Pedidos extends javax.swing.JFrame {
 
     /**
      * void eliminar(){ int fila = ProductosMuestra.getSelectedRow();
-     * dtm.removeRow(fila);
-  }
+     * dtm.removeRow(fila); }
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -405,25 +400,33 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void VerMotosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerMotosActionPerformed
         // TODO add your handling code here:
-        Entregas entregas = new Entregas(productos, vehiculos);
+        Entregas entregas = new Entregas(productos, vehiculos, -1);
         entregas.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_VerMotosActionPerformed
 
     private void ConfirmarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmarCompraActionPerformed
         // TODO add your handling code here:
+        LocalDateTime fechaActual = LocalDateTime.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String fechaPedido = fechaActual.format(formato);
+        int pedido = historial.size()-1;
         if (MotosV.getSelectedItem().toString() == "Moto1") {
             Entregas.Distancia1 = Integer.parseInt(Largo.getText());
+            Entregas.pedido = pedido;
         }
         if (MotosV.getSelectedItem().toString() == "Moto2") {
             Entregas.Distancia2 = Integer.parseInt(Largo.getText());
+            Entregas.pedido = pedido;
         }
         if (MotosV.getSelectedItem().toString() == "Moto3") {
             Entregas.Distancia3 = Integer.parseInt(Largo.getText());
+            Entregas.pedido = pedido;
         }
-        serializarDatos();
-
+        historial.add(new HistorialM(historial.size() + 1, MotosV.getSelectedItem().toString(), Largo.getText(), totalPedido + "", productos, fechaPedido, ""));
+        serializarHistorial();
     }//GEN-LAST:event_ConfirmarCompraActionPerformed
+
     public void refrescarTablaPedidos() {
         DefaultTableModel productosInfo = new DefaultTableModel();
         productosInfo.addColumn("Nombre");
@@ -498,6 +501,7 @@ public class Pedidos extends javax.swing.JFrame {
             suma += precio;
         }
         Total.setText("Total: " + suma);
+        totalPedido = suma;
     }
 
     public void cargarProductos() {
@@ -515,8 +519,7 @@ public class Pedidos extends javax.swing.JFrame {
         /**
          * for (int i = 0; i < vehiculos.size(); i++) { if
          * (vehiculos.get(i).isDisponible()) {
-         * motosLibres.addItem(vehiculos.get(i).getNombre()); }
-        }
+         * motosLibres.addItem(vehiculos.get(i).getNombre()); } }
          */
     }
 
@@ -527,7 +530,20 @@ public class Pedidos extends javax.swing.JFrame {
             out.writeObject(productos);
             out.close();
             fileOut.close();
-            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+      private void serializarHistorial() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(archivoHistorial);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(historial);
+            out.close();
+            fileOut.close();
+            System.out.println("Se genero el historial");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -540,7 +556,7 @@ public class Pedidos extends javax.swing.JFrame {
             productos = (ArrayList<Productos>) in.readObject();
             in.close();
             fileIn.close();
-            
+
         } catch (Exception e) {
             productos = new ArrayList<>();
             e.printStackTrace();
@@ -554,8 +570,6 @@ public class Pedidos extends javax.swing.JFrame {
             productos = (ArrayList<Productos>) in.readObject();
             in.close();
             desguardado.close();
-
-         
 
         } catch (Exception e) {
             e.printStackTrace();

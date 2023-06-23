@@ -1,25 +1,78 @@
-
 package Front;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import practica2vaqueras.HistorialM;
 import practica2vaqueras.Moto;
 import practica2vaqueras.Productos;
 import practica2vaqueras.Recorrido;
 
-
 public class Entregas extends javax.swing.JFrame {
- private ArrayList<Productos> productos = new ArrayList<>();
- private ArrayList<Moto> vehiculos = new ArrayList<>(); 
- public static int Distancia1=0;
- public static int Distancia2=0;
- public static int Distancia3=0;
- 
-    public Entregas(ArrayList<Productos> productos, ArrayList<Moto> vehiculos) {
+
+    private ArrayList<Productos> productos = new ArrayList<>();
+    private ArrayList<Moto> vehiculos = new ArrayList<>();
+    private ArrayList<HistorialM> historial = new ArrayList<>();
+    private final String archivoHistorial = "historial.txt";
+    public static int Distancia1 = 0;
+    public static int Distancia2 = 0;
+    public static int Distancia3 = 0;
+    public static int pedido;
+
+    public Entregas(ArrayList<Productos> productos, ArrayList<Moto> vehiculos, int pedido) {
         initComponents();
-        this.productos=productos;
-        this.vehiculos= vehiculos;
+        this.productos = productos;
+        this.vehiculos = vehiculos;
+        this.pedido = pedido;
+        deserializarDatos();
     }
+
+    private void deserializarDatos() {
+        try {
+            FileInputStream desguardado = new FileInputStream(archivoHistorial);
+            ObjectInputStream in = new ObjectInputStream(desguardado);
+            historial = (ArrayList<HistorialM>) in.readObject();
+            in.close();
+            desguardado.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void fechaEntrega(String MotoSeleccionada) {
+        LocalDateTime fechaActual = LocalDateTime.now();
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String fechaPedido = fechaActual.format(formato);
+
+        for (int i = 0; i < historial.size(); i++) {
+            if (historial.get(i).getVehiculo().equals(MotoSeleccionada)) {
+
+                historial.get(i).setFechaEntrega(fechaPedido);
+            }
+        }
+        serializarHistorial();
+
+    }
+    
+    private void serializarHistorial() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream(archivoHistorial);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(historial);
+            out.close();
+            fileOut.close();
+            System.out.println("Se genero el historial");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -169,29 +222,36 @@ public class Entregas extends javax.swing.JFrame {
         // TODO add your handling code here:
         Recorrido recorrido = new Recorrido(moto1, Distancia1);
         Recorrido recorrido2 = new Recorrido(moto2, Distancia2);
-        Recorrido recorrido3 = new Recorrido(moto3 , Distancia3);        
+        Recorrido recorrido3 = new Recorrido(moto3, Distancia3);
         recorrido.start();
         recorrido2.start();
         recorrido3.start();
+        fechaEntrega("Moto1");
+        fechaEntrega("Moto2");
+        fechaEntrega("Moto3");
+        
+
     }//GEN-LAST:event_EnviarTodosActionPerformed
 
     private void bmoto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bmoto1ActionPerformed
         // TODO add your handling code here:
-        Recorrido recorrido = new Recorrido(moto1,Distancia1);
+        Recorrido recorrido = new Recorrido(moto1, Distancia1);
         recorrido.start();
-        
+        fechaEntrega("Moto1");
     }//GEN-LAST:event_bmoto1ActionPerformed
 
     private void bmoto2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bmoto2ActionPerformed
         // TODO add your handling code here:
         Recorrido recorrido2 = new Recorrido(moto2, Distancia2);
         recorrido2.start();
+        fechaEntrega("Moto2");
     }//GEN-LAST:event_bmoto2ActionPerformed
 
     private void bmoto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bmoto3ActionPerformed
         // TODO add your handling code here:
-         Recorrido recorrido3 = new Recorrido(moto3 , Distancia3);
-         recorrido3.start();
+        Recorrido recorrido3 = new Recorrido(moto3, Distancia3);
+        recorrido3.start();
+        fechaEntrega("Moto3");
     }//GEN-LAST:event_bmoto3ActionPerformed
 
     private void RegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegresarActionPerformed
@@ -201,10 +261,10 @@ public class Entregas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_RegresarActionPerformed
 
-  public JLabel getMeta(){
-  return Meta;
-  }
-  
+    public JLabel getMeta() {
+        return Meta;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton EnviarTodos;
